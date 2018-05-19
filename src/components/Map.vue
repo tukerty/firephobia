@@ -44,6 +44,10 @@ export default {
     this.renderPlayer()
   },
   methods: {
+    /**
+     * Initializes map with canvas DOM element and starts update with 20ms interval
+     * @returns {void}
+     */
     initMap: function () {
       this.canvas = document.getElementById('map')
       this.context = this.canvas.getContext('2d')
