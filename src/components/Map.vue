@@ -53,6 +53,11 @@ export default {
       this.context = this.canvas.getContext('2d')
       this.interval = setInterval(this.updateMap, 20)
     },
+    /**
+     * Creating an array filled with random numbers in range{0,1}
+     * TEMPORARY FUNTION 
+     * @returns {void}
+     */
     generateMap: function () {
       for (var i = 0; i < 32; i++) {
         this.mapArray[i] = new Array(24)
@@ -63,41 +68,67 @@ export default {
         }
       }
     },
+    /**
+     * Rendering map 
+     * FIX ME 
+     * @returns {void}
+     */
     renderMap: function () {
       for (var i = 0; i < 32; i++) {
         for (var j = 0; j < 24; j++) {
           if (this.mapArray[i][j]) {
-            this.context.fillStyle = 'blue'
+            this.context.fillStyle = 'blue'//FIX ME
             this.context.fillRect(i * 20, j * 20, 20, 20)
           } else {
-            this.context.fillStyle = 'black'
+            this.context.fillStyle = 'black'//FIX ME
             this.context.fillRect(i * 20, j * 20, 20, 20)
           }
         }
       }
     },
+    /**
+     * Clears canvas
+     * @returns {void}
+     */
     clearMap: function () {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     },
+    /**
+     * This fucntion contains call other function
+     * @returns {void}
+     */
     updateMap: function () {
       this.clearMap()
       this.renderMap()
       this.updatePlayer()
       this.renderPlayer()
     },
+    /**
+     * Rendering player 
+     * @returns {void}
+     */
     renderPlayer: function () {
       this.context.fillStyle = this.player.color
       this.context.fillRect(this.player.position.x, this.player.position.y, this.player.width, this.player.height)
     },
+    /**
+     * Moves player toward 
+     * @param {number} in range{0..8} 
+     * @returns {void}
+     */
     movePlayer: function (direction) {
       if (!this.player.isWalk) {
         this.player.isWalk = true
-        var n = direction.toString(3)
-        if (n.length === 1) { n = '0' + n }
+        var n = direction.toString(3) // translate into three-digit number system
+        if (n.length === 1) { n = '0' + n } // add insignificant null 
         this.player.speed.y = (n[0] - 1)
         this.player.speed.x = (n[1] - 1)
       }
     },
+    /**
+     * Set new position  
+     * @returns {void}
+     */
     updatePlayer: function () {
       this.player.position.x += this.player.speed.x
       this.player.position.y += this.player.speed.y
